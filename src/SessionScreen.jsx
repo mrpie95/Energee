@@ -40,6 +40,7 @@ export default function SessionScreen({ onEnd }) {
       <Heading mb={4}>Session In Progress</Heading>
       <VStack mt={4} spacing={2} align="start">
         {entries.map((entry, index) => {
+          // shows the logged entries
           const minutes = Math.round((entry.time - startTime) / 60000);
           const energy = entry.energy;
 
