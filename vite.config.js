@@ -7,13 +7,9 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: [
-        'favicon.svg',
-        'pwa-192x192.png',
-        'pwa-512x512.png',
-      ],
+      includeAssets: ['pwa-192x192.png', 'pwa-512x512.png'],
       manifest: {
-        name: 'Energy Tracker',
+        name: 'Energy Tracker SPA',
         short_name: 'Energy',
         start_url: '/',
         display: 'standalone',
