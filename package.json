@@ -1,5 +1,5 @@
 {
-  "name": "energy-tracker-spa",
+  "name": "energy-tracker-vertical",
   "private": true,
   "version": "0.0.1",
   "type": "module",
@@ -15,7 +15,7 @@
     "framer-motion": "^10.16.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "recharts": "^2.8.0"
+    "recharts": "^3.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.0.0",

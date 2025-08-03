@@ -9,9 +9,10 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['pwa-192x192.png', 'pwa-512x512.png'],
       manifest: {
-        name: 'Energy Tracker SPA',
+        name: 'Energy Tracker Vertical',
         short_name: 'Energy',
-        start_url: '/',
+        start_url: "/#/",
+        scope: "/#/",
         display: 'standalone',
         background_color: '#ffffff',
         theme_color: '#4CAF50',
