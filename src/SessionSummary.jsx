@@ -1,22 +1,51 @@
-import { VStack, Heading, Button } from "@chakra-ui/react";
-import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from "recharts";
+// SessionSummary.jsx
+import React from "react";
+import { Box, Heading, Text, VStack, Button } from "@chakra-ui/react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+} from "recharts";
 
-export default function SessionSummary({ session, onBack }) {
-  const data = session.entries.map((e) => ({ x: e.time, y: e.energy }));
+export default function SessionSummary({ data, onHome }) {
+  if (!data) return <Text>No data available.</Text>;
+
+  const chartData = data.entries.map((entry) => ({
+    time: Math.round((entry.time - data.startTime) / 60000),
+    energy: entry.energy,
+  }));
 
   return (
-    <VStack spacing={4} p={4}>
-      <Heading size="md">Session Summary</Heading>
-      <ResponsiveContainer width="100%" height={200}>
-        <LineChart data={data}>
-          <XAxis dataKey="x" label={{ value: "Seconds", position: "insideBottomRight", offset: -5 }} />
-          <YAxis domain={[1, 10]} />
+    <Box p={4}>
+      <Heading mb={4}>Session Summary</Heading>
+      <ResponsiveContainer width="100%" height={300}>
+        <BarChart
+          data={chartData}
+          width={350}
+          height={200}
+          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+        >
+          <XAxis
+            dataKey="time"
+            label={{
+              value: "Minutes",
+              position: "insideBottomRight",
+              offset: 0,
+            }}
+          />
+          <YAxis domain={[0, 10]} />
           <Tooltip />
-          <CartesianGrid strokeDasharray="3 3" />
-          <Line type="monotone" dataKey="y" stroke="#4CAF50" dot={false} />
-        </LineChart>
+          <Bar dataKey="energy" fill="#4CAF50" />
+        </BarChart>
       </ResponsiveContainer>
-      <Button onClick={onBack}>Back to All Sessions</Button>
-    </VStack>
+      <VStack mt={4}>
+        <Button onClick={onHome}>Back to All Sessions</Button>
+      </VStack>
+    </Box>
   );
 }

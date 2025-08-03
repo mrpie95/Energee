@@ -1,35 +1,34 @@
-import { useState } from "react";
+// App.jsx
+import React, { useState } from "react";
 import SessionsList from "./SessionsList";
 import SessionScreen from "./SessionScreen";
 import SessionSummary from "./SessionSummary";
 
 export default function App() {
-  const [view, setView] = useState("sessions");
-  const [currentSession, setCurrentSession] = useState(null);
+  const [screen, setScreen] = useState("list"); // "list", "session", or "summary"
+  const [summaryData, setSummaryData] = useState(null);
 
-  if (view === "sessions") {
-    return <SessionsList onStart={() => setView("session")} />;
-  }
+  const startSession = () => setScreen("session");
 
-  if (view === "session") {
-    return (
-      <SessionScreen
-        onEnd={(session) => {
-          setCurrentSession(session);
-          setView("summary");
-        }}
-      />
-    );
-  }
+  const showSummary = (data) => {
+    setSummaryData(data);
+    setScreen("summary");
+  };
 
-  if (view === "summary") {
-    return (
-      <SessionSummary
-        session={currentSession}
-        onBack={() => setView("sessions")}
-      />
-    );
-  }
+  const goHome = () => {
+    setSummaryData(null);
+    setScreen("list");
+  };
 
-  return <div>Unknown view</div>;
+  return (
+    <>
+      {screen === "session" && <SessionScreen onEnd={showSummary} />}
+      {screen === "summary" && (
+        <SessionSummary data={summaryData} onHome={goHome} />
+      )}
+      {screen === "list" && (
+        <SessionsList onStart={startSession} onSelectSession={showSummary} />
+      )}
+    </>
+  );
 }
